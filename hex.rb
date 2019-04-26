@@ -16,10 +16,17 @@ def to_base_x(base, num)
     return result.reverse.join
 end
 
+def from_base_x_to_base_y(base_x,base_y,num)
+    dec = to_decimal(base_x,num)
+    return to_base_x(base_y, dec)
+end
+
 puts "********** Hex converter **********"
-puts "Convertion base-10 vers base-x"
-print "Veillez choisir votre base de numération : "
-base = gets.to_i
+puts "Convertion base-x vers base-y"
+print "Veillez choisir votre base de numération de départ : "
+base_x = gets.to_i
+print "Veillez choisir votre base de numération d'arrivée : "
+base_y = gets.to_i
 print "Veillez saisir le nombre à convertir : "
 num = gets.to_i
-print "Résultat : #{to_base_x(base, num)}"
+print "Résultat : #{from_base_x_to_base_y(base_x, base_y, num)}"
