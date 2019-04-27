@@ -1,3 +1,18 @@
+def from_hex(str)
+    hex = {"A"=>10, "B"=>11, "C"=>12, "D"=>13, "E"=>14, "F"=>15}
+    num = str.upcase.chars.reverse
+    result = 0
+    for i in 0..num.length-1 do
+        if hex.include?(num[i])
+            num[i] = hex[num[i]]
+            puts num.inspect
+        end
+        result += num[i].to_i*(16**i)
+        puts result
+    end
+    return result
+end
+
 def to_decimal(base, num)
     result = 0
     for i in 0..num.digits.length-1 do
