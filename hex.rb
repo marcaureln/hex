@@ -3,12 +3,8 @@ def from_hex(str)
     num = str.upcase.chars.reverse
     result = 0
     for i in 0..num.length-1 do
-        if hex.include?(num[i])
-            num[i] = hex[num[i]]
-            puts num.inspect
-        end
+        num[i] = hex[num[i]] if hex.include?(num[i]) # replace alphabetic characters by numerics ones
         result += num[i].to_i*(16**i)
-        puts result
     end
     return result
 end
