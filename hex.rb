@@ -32,7 +32,7 @@ def from_base_x_to_base_y(base_x,base_y,num)
     return to_base_x(base_y, dec)
 end
 
-puts "********** Hex converter **********"
+puts "********** Hex Dec Oct Bin Converter **********"
 puts "Convertion base-x vers base-y"
 print "Veillez choisir votre base de numération de départ : "
 base_x = gets.to_i
