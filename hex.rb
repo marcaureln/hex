@@ -9,7 +9,22 @@ def from_hex(str)
     return result
 end
 
-def to_hex
+def to_hex(num)
+    hex = {"10"=>"A", "11"=>"B", "12"=>"C", "13"=>"D", "14"=>"E", "15"=>"F"}
+    result = Array.new
+
+    while num/16 > 0
+        result.push(num%16)
+        num /= 16
+    end
+    result.push(num%16)
+
+    result.map! { |x| x.to_s }
+    for i in 0..result.length-1 do
+        result[i] = hex[result[i]] if hex.include?(result[i])
+    end
+    
+    return result.reverse.join
 end
 
 def to_decimal(base, num)
@@ -31,17 +46,17 @@ def to_base_x(base, num)
 end
 
 def convert(from,to,num) 
-    from==16? dec = from_hex(num) : dec = to_decimal(from,num) 
+    from==16? dec = from_hex(num) : dec = to_decimal(from,num.to_i) 
 
     case to 
     when 10
         return dec
     when 2..8
-        return to_base_x(to, num)
+        return to_base_x(to, dec)
     when 16
-        return to_hex(num)
+        return to_hex(dec)
     else
-        return nil
+        return 42
     end
 end
 
@@ -52,5 +67,5 @@ from = gets.to_i
 print "Veillez choisir votre base de numération d'arrivée : "
 to = gets.to_i
 print "Veillez saisir le nombre à convertir : "
-num = gets.to_i
+num = gets.chomp
 print "Résultat : #{convert(from, to, num)}"
