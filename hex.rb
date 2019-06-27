@@ -9,6 +9,9 @@ def from_hex(str)
     return result
 end
 
+def to_hex
+end
+
 def to_decimal(base, num)
     result = 0
     for i in 0..num.digits.length-1 do
@@ -27,17 +30,27 @@ def to_base_x(base, num)
     return result.reverse.join
 end
 
-def from_base_x_to_base_y(base_x,base_y,num)
-    dec = to_decimal(base_x,num)
-    return to_base_x(base_y, dec)
+def convert(from,to,num) 
+    from==16? dec = from_hex(num) : dec = to_decimal(from,num) 
+
+    case to 
+    when 10
+        return dec
+    when 2..8
+        return to_base_x(to, num)
+    when 16
+        return to_hex(num)
+    else
+        return nil
+    end
 end
 
 puts "********** Hex Dec Oct Bin Converter **********"
 puts "Convertion base-x vers base-y"
 print "Veillez choisir votre base de numération de départ : "
-base_x = gets.to_i
+from = gets.to_i
 print "Veillez choisir votre base de numération d'arrivée : "
-base_y = gets.to_i
+to = gets.to_i
 print "Veillez saisir le nombre à convertir : "
 num = gets.to_i
-print "Résultat : #{from_base_x_to_base_y(base_x, base_y, num)}"
+print "Résultat : #{convert(from, to, num)}"
