@@ -12,18 +12,16 @@ end
 def to_hex(num)
     hex = {"10"=>"A", "11"=>"B", "12"=>"C", "13"=>"D", "14"=>"E", "15"=>"F"}
     result = Array.new
-
     while num/16 > 0
         result.push(num%16)
         num /= 16
     end
-    result.push(num%16)
-
-    result.map! { |x| x.to_s }
+    result.push(num%16) # the loop end when the divsion answer is 0 so it doesn't calculate the last modulo
+    result.map! { |x| x.to_s } # convert all numbers to string to replace numbers greater than 9 by their hex letters
     for i in 0..result.length-1 do
-        result[i] = hex[result[i]] if hex.include?(result[i])
+        result[i] = hex[result[i]] if hex.include?(result[i]) # replace numerics characters by alphabetic ones
     end
-    
+
     return result.reverse.join
 end
 
@@ -46,8 +44,11 @@ def to_base_x(base, num)
 end
 
 def convert(from,to,num) 
-    from==16? dec = from_hex(num) : dec = to_decimal(from,num.to_i) 
+    # convert func use a bridge methode; first we convert to decimal and then to the desired base
+    # if the given num is an hexadecimal one use the dedicaded func from_hex to convert it to decimal, if not use the default to_decimal func 
+    (from==16)? dec = from_hex(num) : dec = to_decimal(from,num.to_i) 
 
+    # case statement to select the right function according to the chosen base
     case to 
     when 10
         return dec
@@ -60,6 +61,7 @@ def convert(from,to,num)
     end
 end
 
+# THE PROGRAM START HERE
 puts "********** Hex Dec Oct Bin Converter **********"
 puts "Convertion base-x vers base-y"
 print "Veillez choisir votre base de numération de départ : "
@@ -67,5 +69,5 @@ from = gets.to_i
 print "Veillez choisir votre base de numération d'arrivée : "
 to = gets.to_i
 print "Veillez saisir le nombre à convertir : "
-num = gets.chomp
+num = gets.chomp # it gets the input as string to keep hexadecimal characters
 print "Résultat : #{convert(from, to, num)}"
